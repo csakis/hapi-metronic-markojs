@@ -4,6 +4,37 @@ const Path = require('path')
 const Inert = require('inert')
 const Vision = require('vision')
 
+require('marko/node-require').install()
+
+
+const logOptions = {
+    ops: {
+        interval: 1000
+    },
+    reporters: {
+        myConsoleReporter: [{
+            module: 'good-squeeze',
+            name: 'Squeeze',
+            args: [{
+                log: '*',
+                response: '*'
+            }]
+        }, {
+            module: 'good-console'
+        }, 'stdout'],
+      
+        myHTTPReporter: [{
+            module: 'good-squeeze',
+            name: 'Squeeze',
+            args: [{
+                error: '*'
+            }]
+        }]
+    }
+};
+
+
+
 const server = Hapi.server({
     port: 3000,
     routes: {
@@ -16,6 +47,21 @@ const server = Hapi.server({
 const start = async() => {
     await server.register(Inert)
     await server.register(Vision)
+    await server.register({
+        plugin: require('good'),
+        logOptions
+    })
+
+    // server.views({
+    //     relativeTo: Path.join(__dirname, 'views'),
+    //     engines: {
+    //         hbs: require('handlebars')
+    //     },
+    //     isCached: false,
+    //     //layout: true,
+    //     partialsPath: 'partials',
+    //     helpersPath: 'helpers'
+    // })
 
     server.views({
         relativeTo:__dirname,
@@ -33,18 +79,20 @@ const start = async() => {
                 }
             }
         },
-        isCached: false,
+        //isCached: false,
        // layout: true,
       //  partialsPath: 'partials',
       //  helpersPath: 'helpers',
-       path: 'views'
+       path: 'templates'
     }) //end views
 
     server.route({
         path: '/',
         method: 'GET',
-        handler:  (req, h) =>{
-            return h.view('index', {title: "Marko!!"})
+        handler: (req, h) => {
+            return h.view('index', {
+                title: "Marko!!"
+            })
         }
     })
 
