@@ -1,6 +1,6 @@
 {
     "config": {
-        "demo": "",
+        "demo": "demo2",
         "debug": false,
         "compile": {
             "jsUglify": false,
@@ -15,7 +15,7 @@
         },
         "dist": [
             
-            "./../dist/**/assets"
+            "./../../public/assets/"
         ]
     },
     "build": {
