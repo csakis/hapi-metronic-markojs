@@ -3,8 +3,8 @@
         "demo": "demo2",
         "debug": false,
         "compile": {
-            "jsUglify": false,
-            "cssMinify": false,
+            "jsUglify": true,
+            "cssMinify": true,
             "jsSourcemaps": false,
             "cssSourcemaps": false
         },
