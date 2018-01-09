@@ -7,9 +7,7 @@ const Bcrypt = require('bcrypt')
 const HapiAuthCookie = require('hapi-auth-cookie')
 const AuthStrategy = require('./config/auth-strategy')
 const Users = require('./data/users')
-
 require('marko/node-require')
-
 const logOptions = {
     ops: {
         interval: 1000
@@ -36,7 +34,6 @@ const logOptions = {
     }
 };
 
-
 const server = Hapi.server({
     port: 3000,
     routes: {
@@ -58,7 +55,7 @@ const start = async() => {
         plugin: require('good'),
         logOptions
     })
-    //This is only needed if I want to change the view hengine to handlebars
+    //This is only needed if I want to change the view engine to handlebars
     // server.views({
     //     relativeTo: Path.join(__dirname, 'views'),
     //     engines: {
@@ -78,6 +75,7 @@ const start = async() => {
         engines: {
             marko: {
                 compile: (src, options) => {
+                    
                     const opts = {
                         preserveWhitespace: true,
                         writeToDisk: false

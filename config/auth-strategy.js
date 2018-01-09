@@ -1,6 +1,6 @@
 const Users = require('../data/users');
 module.exports = {
-        password: "93pm9DBL3JVDhq4TMhWTJSP7M68nRrP5",
+        password: "93pm9DBL3gjhgghjjgjhggJVDhq4TMhWTJSP7M68nRrP5",
         cookie: "session",
         isSecure: false,
         redirectTo: '/login',
