@@ -68,14 +68,17 @@ const start = async() => {
     // })
 
     server.auth.strategy('basic', 'cookie', AuthStrategy);
-    server.auth.default({strategy: 'basic', mode: 'try'});
+    server.auth.default({
+        strategy: 'basic',
+        mode: 'try'
+    });
 
     server.views({
         relativeTo: __dirname,
         engines: {
             marko: {
                 compile: (src, options) => {
-                    
+
                     const opts = {
                         preserveWhitespace: true,
                         writeToDisk: false
@@ -88,19 +91,19 @@ const start = async() => {
             }
         },
         path: 'templates',
-        context : (request) => {
+        context: (request) => {
             return {
                 user: request.auth.credentials
             };
 
         }
     }) //end views
-
+    
     server.route({
         path: '/',
         method: 'GET',
-        options:{
-            auth:{
+        options: {
+            auth: {
                 strategy: 'basic',
                 mode: 'required'
             }
@@ -123,7 +126,7 @@ const start = async() => {
     server.route({
         path: '/login',
         method: 'POST',
-        handler: async (req, h) => {
+        handler: async(req, h) => {
             const {
                 username,
                 password
@@ -147,14 +150,18 @@ const start = async() => {
         handler: {
             directory: {
                 path: '.',
-                redirectToSlash: true, 
-                index:true
+                redirectToSlash: true,
+                index: true
             }
         }
     }) //end route
 
-    await server.start()
-    console.log("Hapi server started on %s", server.info.uri)
-}
+    await server.start();
+    console.log(`Hapi server started on %s`, server.info.uri);
+    //for browser-refresh
+    if (process.send) {
+        process.send({ event:'online', url:'http://localhost:3000/' });
+    }
+};
 
-start()
+start();

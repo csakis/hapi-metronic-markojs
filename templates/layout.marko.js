@@ -10,6 +10,7 @@ var marko_template = module.exports = require("marko/src/html").t(__filename),
     marko_loadTag = marko_helpers.t,
     component_globals_tag = marko_loadTag(require("marko/src/components/taglib/component-globals-tag")),
     include_tag = marko_loadTag(require("marko/src/taglibs/core/include-tag")),
+    browser_refresh_tag = marko_loadTag(require("browser-refresh-taglib/refresh-tag")),
     init_components_tag = marko_loadTag(require("marko/src/components/taglib/init-components-tag")),
     await_reorderer_tag = marko_loadTag(require("marko/src/taglibs/async/await-reorderer-tag"));
 
@@ -26,9 +27,13 @@ function render(input, out, __component, component, state) {
 
   out.w("<script src=\"js/vendor/modernizr-3.5.0.min.js\"></script><script src=\"js/vendor/jquery-3.2.1.min.js\"></script><script src=\"js/vendor/popper.min.js\"></script> <script src=\"js/vendor/bootstrap.min.js\"></script>");
 
+  browser_refresh_tag({
+      enabled: "true"
+    }, out, __component, "17");
+
   init_components_tag({}, out);
 
-  await_reorderer_tag({}, out, __component, "17");
+  await_reorderer_tag({}, out, __component, "18");
 
   out.w("</body></html>");
 }
@@ -45,6 +50,7 @@ marko_template.meta = {
     tags: [
       "marko/src/components/taglib/component-globals-tag",
       "marko/src/taglibs/core/include-tag",
+      "browser-refresh-taglib/refresh-tag",
       "marko/src/components/taglib/init-components-tag",
       "marko/src/taglibs/async/await-reorderer-tag"
     ]
