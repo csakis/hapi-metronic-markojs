@@ -16,21 +16,19 @@ var marko_template = module.exports = require("marko/src/html").t(__filename),
 function render(input, out, __component, component, state) {
   var data = input;
 
-  out.w("<!doctype html><html class=\"no-js\" lang=\"\"><head><meta charset=\"utf-8\"><meta http-equiv=\"x-ua-compatible\" content=\"ie=edge\"><title></title><meta name=\"description\" content=\"\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><link rel=\"manifest\" href=\"site.webmanifest\"><link rel=\"apple-touch-icon\" href=\"icon.png\"><link rel=\"stylesheet\" href=\"css/normalize.css\"><link rel=\"stylesheet\" href=\"css/bootstrap.min.css\"><link rel=\"stylesheet\" href=\"css/fontawesome-all.min.css\"> <link rel=\"stylesheet\" href=\"css/roboto.min.css\"><link rel=\"stylesheet\" href=\"css/main.css\"></head><body>");
+  out.w("<!doctype html><html class=\"no-js\" lang=\"\"><head><meta charset=\"utf-8\"><meta http-equiv=\"x-ua-compatible\" content=\"ie=edge\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title></title><link rel=\"shortcut icon\" type=\"image/png\" href=\"/favicon.png\"><link rel=\"stylesheet\" href=\"css/normalize.css\"><link rel=\"stylesheet\" href=\"css/bootstrap.min.css\"><link rel=\"stylesheet\" href=\"css/roboto.min.css\"><script defer src=\"js/vendor/fontawesome-all.min.js\"></script> </head><body>");
 
   component_globals_tag({}, out);
 
-  out.w("<!--[if lte IE 9]>\r\n            <p class=\"browserupgrade\">You are using an <strong>outdated</strong> browser. Please <a href=\"https://browsehappy.com/\">upgrade your browser</a> to improve your experience and security.</p>\r\n        <![endif]-->");
-
   include_tag({
       _target: input.body
-    }, out, __component, "15");
+    }, out, __component, "12");
 
-  out.w("<script src=\"js/vendor/modernizr-3.5.0.min.js\"></script><script src=\"js/vendor/jquery-3.2.1.min.js\"></script><script src=\"js/vendor/popper.min.js\"></script><script src=\"js/vendor/bootstrap.min.js\"></script><script>\r\n            window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;\r\n            ga('create','UA-XXXXX-Y','auto');ga('send','pageview')\r\n        </script><script src=\"https://www.google-analytics.com/analytics.js\" async defer></script>");
+  out.w("<script src=\"js/vendor/modernizr-3.5.0.min.js\"></script><script src=\"js/vendor/jquery-3.2.1.min.js\"></script><script src=\"js/vendor/popper.min.js\"></script> <script src=\"js/vendor/bootstrap.min.js\"></script>");
 
   init_components_tag({}, out);
 
-  await_reorderer_tag({}, out, __component, "22");
+  await_reorderer_tag({}, out, __component, "17");
 
   out.w("</body></html>");
 }

@@ -1,7 +1,3 @@
-/*!
- * Font Awesome Pro 5.0.2 by @fontawesome - http://fontawesome.com
- * License - http://fontawesome.com/license (Commercial License)
- */
 (function () {
 'use strict';
 
@@ -16,20 +12,8 @@ var _ref$userAgent = _ref.userAgent;
 var userAgent = _ref$userAgent === undefined ? '' : _ref$userAgent;
 
 var WINDOW = _WINDOW;
-
-
-
-
 var IS_IE = ~userAgent.indexOf('MSIE') || ~userAgent.indexOf('Trident/');
-
 var NAMESPACE_IDENTIFIER = '___FONT_AWESOME___';
-
-
-
-
-
-
-
 var PRODUCTION = function () {
   try {
     return "production" === 'production';
@@ -40,9 +24,6 @@ var PRODUCTION = function () {
 
 var oneToTen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 var oneToTwenty = oneToTen.concat([11, 12, 13, 14, 15, 16, 17, 18, 19, 20]);
-
-
-
 var RESERVED_CLASSES = ['xs', 'sm', 'lg', 'fw', 'ul', 'li', 'border', 'pull-left', 'pull-right', 'spin', 'pulse', 'rotate-90', 'rotate-180', 'rotate-270', 'flip-horizontal', 'flip-vertical', 'stack', 'stack-1x', 'stack-2x', 'inverse', 'layers', 'layers-text', 'layers-counter'].concat(oneToTen.map(function (n) {
   return n + 'x';
 })).concat(oneToTwenty.map(function (n) {

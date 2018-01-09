@@ -42,8 +42,8 @@ const server = Hapi.server({
         }
     },
     debug: {
-        request: ['*'],
-        log: ['*']
+        request: ['error'],
+        log: ['error']
     }
 });
 
@@ -146,7 +146,9 @@ const start = async() => {
         path: '/{param*}',
         handler: {
             directory: {
-                path: '.'
+                path: '.',
+                redirectToSlash: true, 
+                index:true
             }
         }
     }) //end route
