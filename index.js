@@ -3,6 +3,7 @@ const Marko = require('marko')
 const Path = require('path')
 const Inert = require('inert')
 const Vision = require('vision')
+const Joi = require('joi')
 const Bcrypt = require('bcrypt')
 const HapiAuthCookie = require('hapi-auth-cookie')
 const AuthStrategy = require('./config/auth-strategy')
@@ -32,6 +33,11 @@ const logOptions = {
             }]
         }]
     }
+};
+
+const loginSchema = {
+    username: Joi.string().email().required(),
+    password: Joi.string().required()
 };
 
 const server = Hapi.server({
@@ -126,6 +132,11 @@ const start = async() => {
     server.route({
         path: '/login',
         method: 'POST',
+        config:{
+            validate: {
+                payload: loginSchema
+            }
+        },
         handler: async(req, h) => {
             const {
                 username,
