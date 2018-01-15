@@ -28,6 +28,7 @@
     "inert": "^5.0.1",
     "joi": "^13.1.0",
     "marko": "^4.7.4",
+    "relish": "^0.2.4",
     "vision": "^5.3.0"
   },
   "devDependencies": {

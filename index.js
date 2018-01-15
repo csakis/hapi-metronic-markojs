@@ -4,6 +4,7 @@ const Path = require('path')
 const Inert = require('inert')
 const Vision = require('vision')
 const Joi = require('joi')
+const Relish = require('relish')
 const Bcrypt = require('bcrypt')
 const HapiAuthCookie = require('hapi-auth-cookie')
 const AuthStrategy = require('./config/auth-strategy')
@@ -36,7 +37,7 @@ const logOptions = {
 };
 
 const loginSchema = {
-    username: Joi.string().email().required(),
+    username: Joi.string().email().required().error(new Error('Email is needed for login!')),
     password: Joi.string().required()
 };
 
@@ -134,7 +135,10 @@ const start = async() => {
         method: 'POST',
         config:{
             validate: {
-                payload: loginSchema
+                payload: loginSchema,
+                 failAction: (req, h, source, err) => {
+                    return h.view('login')
+                 }
             }
         },
         handler: async(req, h) => {
