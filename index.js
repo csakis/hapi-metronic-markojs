@@ -4,12 +4,18 @@ const Path = require('path')
 const Inert = require('inert')
 const Vision = require('vision')
 const Joi = require('joi')
-const Relish = require('relish')
+// const Relish = require('relish')({
+//     messages: {
+//         'data.username': 'Please enter en email',
+//         'data.password': 'Password is required'
+//     }
+// })
 const Bcrypt = require('bcrypt')
 const HapiAuthCookie = require('hapi-auth-cookie')
 const AuthStrategy = require('./config/auth-strategy')
 const Users = require('./data/users')
 require('marko/node-require')
+
 const logOptions = {
     ops: {
         interval: 1000
@@ -37,10 +43,21 @@ const logOptions = {
 };
 
 const loginSchema = {
-    username: Joi.string().email().required().error(new Error('Email is needed for login!')),
+    username: Joi.string().email().required(),
     password: Joi.string().required()
 };
 
+
+const loginFailAction = async (request, h, err) => {
+    console.log('******request*******')
+    console.log(request)
+    console.log('******h*******')
+    console.log(h)
+    console.log('******err*******')
+    console.log(err)
+    throw err;
+   return ;
+}
 const server = Hapi.server({
     port: 3000,
     routes: {
@@ -80,6 +97,14 @@ const start = async() => {
         mode: 'try'
     });
 
+    // server.ext('onPreResponse', function (request, h) {
+    //     if (request.response.isBoom) {
+    //         console.log(request);
+    //         return h.view('login');
+    //     }
+    //     return h.continue;
+    // });
+
     server.views({
         relativeTo: __dirname,
         engines: {
@@ -105,7 +130,7 @@ const start = async() => {
 
         }
     }) //end views
-    
+
     server.route({
         path: '/',
         method: 'GET',
@@ -133,15 +158,19 @@ const start = async() => {
     server.route({
         path: '/login',
         method: 'POST',
-        config:{
+        config: {
             validate: {
-                payload: loginSchema,
-                 failAction: (req, h, source, err) => {
-                    return h.view('login')
-                 }
+                // options: {
+                //     abortEarly: false
+                // },
+                payload: {
+                    data: Joi.object(loginSchema)
+                },
+                failAction: loginFailAction
             }
         },
         handler: async(req, h) => {
+            console.log(req);
             const {
                 username,
                 password
@@ -175,7 +204,10 @@ const start = async() => {
     console.log(`Hapi server started on %s`, server.info.uri);
     //for browser-refresh
     if (process.send) {
-        process.send({ event:'online', url:'http://localhost:3000/' });
+        process.send({
+            event: 'online',
+            url: 'http://localhost:3000/'
+        });
     }
 };
 
