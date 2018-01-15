@@ -47,17 +47,6 @@ const loginSchema = {
     password: Joi.string().required()
 };
 
-
-const loginFailAction = async (request, h, err) => {
-    console.log('******request*******')
-    console.log(request)
-    console.log('******h*******')
-    console.log(h)
-    console.log('******err*******')
-    console.log(err)
-    throw err;
-   return ;
-}
 const server = Hapi.server({
     port: 3000,
     routes: {
@@ -97,13 +86,20 @@ const start = async() => {
         mode: 'try'
     });
 
-    // server.ext('onPreResponse', function (request, h) {
-    //     if (request.response.isBoom) {
-    //         console.log(request);
-    //         return h.view('login');
-    //     }
-    //     return h.continue;
-    // });
+    //error handling
+    server.ext('onPreResponse', function (request, h) {
+        const response = request.response;  
+        // if there's no Boom error, don't bother checking further down
+        if (!response.isBoom) {
+            return h.continue;
+        }
+        //let's handle login POST error
+        if (request.route.path == '/login' && request.route.method == 'post') {
+            return h.view('login', {error: response.details});
+        }
+       
+       return h.continue;
+    });
 
     server.views({
         relativeTo: __dirname,
@@ -160,17 +156,14 @@ const start = async() => {
         method: 'POST',
         config: {
             validate: {
-                // options: {
-                //     abortEarly: false
-                // },
-                payload: {
-                    data: Joi.object(loginSchema)
+                options: {
+                    abortEarly: false
                 },
-                failAction: loginFailAction
+                payload: loginSchema,
+                failAction: (request, h, err) => { throw err; return;}
             }
         },
         handler: async(req, h) => {
-            console.log(req);
             const {
                 username,
                 password

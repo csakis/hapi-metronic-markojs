@@ -1,38 +1,20 @@
 import layout from './layout'
 <include(layout)>
     <@body>
-<div class="container">
-    <div class="row">
-		<div class="col-md-2">
-			<form class="form-horizontal" action='' method="POST">
-			  <fieldset>
-			    <div id="legend">
-			      <legend class="">Login</legend>
-			    </div>
-			    <div class="form-group">
-			      <!-- Username -->
-			      <label c for="username">Username</label>
-			      <div class="controls">
-			        <input type="text" id="username" name="username" placeholder="" class="form-control input-xlarge ">
-			      </div>
-			    </div>
-			    <div class="form-group">
-			      <!-- Password-->
-			      <label for="password">Password</label>
-			      <div class="controls">
-			        <input type="password" id="password" name="password" placeholder="" class="form-control input-xlarge">
-			      </div>
-			    </div>
-			    <div class="form-group">
-			      <!-- Button -->
-			      <div class="controls">
-			        <button class="btn btn-success">Login</button>
-			      </div>
-			    </div>
-			  </fieldset>
-			</form>
-		</div>
-	</div>
-</div>
+        <div class="container">
+            <form action='' method="POST">
+                <div class="form-group">
+                    <label for="username">User Name</label>
+                    <input type="email" class="form-control" id="username" name="username" aria-describedby="emailHelp" placeholder="Enter email">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+
     </@body>
-</include>
+    </include>

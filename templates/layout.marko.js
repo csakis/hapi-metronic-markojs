@@ -17,23 +17,23 @@ var marko_template = module.exports = require("marko/src/html").t(__filename),
 function render(input, out, __component, component, state) {
   var data = input;
 
-  out.w("<!doctype html><html class=\"no-js\" lang=\"\"><head><meta charset=\"utf-8\"><meta http-equiv=\"x-ua-compatible\" content=\"ie=edge\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title></title><link rel=\"shortcut icon\" type=\"image/png\" href=\"/favicon.png\"><link rel=\"stylesheet\" href=\"css/normalize.css\"><link rel=\"stylesheet\" href=\"css/bootstrap.min.css\"><link rel=\"stylesheet\" href=\"css/roboto.min.css\"><script defer src=\"js/vendor/fontawesome-all.min.js\"></script> </head><body>");
+  out.w("<!doctype html><html class=\"no-js\" lang=\"\"><head><meta charset=\"utf-8\"><meta http-equiv=\"x-ua-compatible\" content=\"ie=edge\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title></title><link rel=\"shortcut icon\" type=\"image/png\" href=\"/favicon.png\"><link rel=\"stylesheet\" href=\"css/normalize.css\"><link rel=\"stylesheet\" href=\"css/bootstrap.min.css\"><script defer src=\"js/vendor/fontawesome-all.min.js\"></script> </head><body>");
 
   component_globals_tag({}, out);
 
   include_tag({
       _target: input.body
-    }, out, __component, "12");
+    }, out, __component, "11");
 
-  out.w("<script src=\"js/vendor/modernizr-3.5.0.min.js\"></script><script src=\"js/vendor/jquery-3.2.1.min.js\"></script><script src=\"js/vendor/popper.min.js\"></script> <script src=\"js/vendor/bootstrap.min.js\"></script>");
+  out.w("<script src=\"js/vendor/jquery-3.2.1.min.js\"></script><script src=\"js/vendor/popper.min.js\"></script> <script src=\"js/vendor/bootstrap.min.js\"></script>");
 
   browser_refresh_tag({
       enabled: "true"
-    }, out, __component, "17");
+    }, out, __component, "15");
 
   init_components_tag({}, out);
 
-  await_reorderer_tag({}, out, __component, "18");
+  await_reorderer_tag({}, out, __component, "16");
 
   out.w("</body></html>");
 }
