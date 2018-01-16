@@ -6,6 +6,7 @@ import layout from './layout'
             <div class="form">
                 <div class="col">
                     <label class="" for="username">User Name</label>
+
                     <input type="text" class={'form-control':true, 'is-invalid':(data.isUserNameEmpty || data.isUserNameEmail)} id="username" name="username" aria-describedby="emailHelp" placeholder="Enter email">
                       
                     <small if(data.isUserNameEmpty) class="invalid-feedback">The user name field is required</small>
@@ -20,6 +21,7 @@ import layout from './layout'
                 </div>
                 </div>
               
+
                 
             </form>
         </div>
