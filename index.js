@@ -88,17 +88,24 @@ const start = async() => {
 
     //error handling
     server.ext('onPreResponse', function (request, h) {
-        const response = request.response;  
+        const response = request.response;
         // if there's no Boom error, don't bother checking further down
         if (!response.isBoom) {
             return h.continue;
         }
         //let's handle login POST error
         if (request.route.path == '/login' && request.route.method == 'post') {
-            return h.view('login', {error: response.details});
+            return h.view('login', {
+                error: response.details
+            });
         }
-       
-       return h.continue;
+
+        //handle 404 error 
+        if(response.output.statusCode == '404') {
+            return h.view('404');
+        };
+
+        return h.continue;
     });
 
     server.views({
@@ -160,7 +167,10 @@ const start = async() => {
                     abortEarly: false
                 },
                 payload: loginSchema,
-                failAction: (request, h, err) => { throw err; return;}
+                failAction: (request, h, err) => {
+                    throw err;
+                    return;
+                }
             }
         },
         handler: async(req, h) => {

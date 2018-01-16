@@ -14,9 +14,7 @@ function render(input, out, __component, component, state) {
 
   out.w("<div class=\"app-hello\">Hello " +
     marko_escapeXml(data.name) +
-    "! You have " +
-    marko_escapeXml(data.messageCount) +
-    " message(s).</div>");
+    "! You have succesfully logged in.</div>");
 }
 
 marko_template._ = marko_renderer(render, {
