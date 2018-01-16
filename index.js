@@ -95,13 +95,37 @@ const start = async() => {
         }
         //let's handle login POST error
         if (request.route.path == '/login' && request.route.method == 'post') {
+            //these 3 convoluted expressions below set the error flags for the login.marko template
+            //I'll need to make this less complex
+            const isUserNameEmpty = response.details.find((x) => {
+                if (x.message === '"username" is not allowed to be empty') {
+                    return true;
+                }
+                return false;
+            }) !== undefined;
+
+            const isUserNameEmail = response.details.find((x) => {
+                if (x.message === '"username" must be a valid email') {
+                    return true;
+                }
+                return false;
+            }) !== undefined;
+
+            const isPasswordEmpty = response.details.find((x) => {
+                if (x.message === '"password" is not allowed to be empty') {
+                    return true;
+                }
+                return false;
+            }) !== undefined;
             return h.view('login', {
-                error: response.details
+                isUserNameEmpty:isUserNameEmpty,
+                isUserNameEmail: isUserNameEmail,
+                isPasswordEmpty: isPasswordEmpty
             });
         }
 
         //handle 404 error 
-        if(response.output.statusCode == '404') {
+        if (response.output.statusCode == '404') {
             return h.view('404');
         };
 
@@ -154,7 +178,11 @@ const start = async() => {
         path: '/login',
         method: 'GET',
         handler: (req, h) => {
-            return h.view('login');
+            return h.view('login', {
+                isUserNameEmpty: false,
+                isUserNameEmail: false,
+                isPasswordEmpty: false
+            });
         }
     });
 
