@@ -48,7 +48,7 @@ const loginSchema = {
 };
 
 const server = Hapi.server({
-    port: 3000,
+    port: 3030,
     routes: {
         files: {
             relativeTo: Path.join(__dirname, 'public')
@@ -170,6 +170,22 @@ const start = async() => {
         handler: (req, h) => {
             return h.view('index', {
                 title: "Marko!!"
+            })
+        }
+    })
+
+    server.route({
+        path: '/user',
+        method: 'GET',
+        options: {
+            auth: {
+                strategy: 'basic',
+                mode: 'required'
+            }
+        },
+        handler: (req, h) => {
+            return h.view('user', {
+                title: "User!!"
             })
         }
     })
